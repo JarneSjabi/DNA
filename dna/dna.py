@@ -26,12 +26,12 @@ def main():
             str_counts[str_name] = longest_match(sequence, str_name)
 
     # Comparing and showing result
-    match = check_for_match(db, str_counts)
+    profile_matching = compare(db, str_counts)
     
-    if match:
-        print(f"Match found: {match}")
+    if profile_matching:
+        print(f"DNA Profile match found: {profile_matching}")
     else:
-        print("No match found")
+        print("No DNA Profile match found")
 
 def load_database(filename):
     """Load database by filename"""
@@ -84,14 +84,14 @@ def longest_match(sequence, subsequence):
     # After checking for runs at each character in seqeuence, return longest run found
     return longest_run
 
-def check_for_match(db, str_counts):
+def compare(db, str_counts):
     for person in db:
-        match = True
+        is_profile_match = True
         for str_name, count in str_counts.items():
             if int(person[str_name]) != count:
-                match = False
+                is_profile_match = False
                 break
-        if match:
+        if is_profile_match:
             return person['name']
     return None
 
